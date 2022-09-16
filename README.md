@@ -2,13 +2,13 @@
 
 A tool for extracting and visualising LoRaWAN gateway health information from the application [OS2iot](https://os2.eu/produkt/os2iot) using built-in HTML and JavaScript objects. The tool identifies and dynamically displays the following applicable information every thirty minutes:
 
-- LoRaWAN Gateway ID
-- Device Name
-- Location (Placement, Address & Postal Code)
-- Daily Packages (Transferred & Received)
-- Last seen
-- Status
-- Map using [Leaflet](https://leafletjs.com/)
+- LoRaWAN Gateway ID.
+- Device Name.
+- Location (Placement, Address & Postal Code).
+- Daily Packages (Transferred & Received).
+- Last seen.
+- Status.
+- Map using [Leaflet](https://leafletjs.com/).
 
 ![Screenshot of interface](https://raw.githubusercontent.com/ITKCityLab/LoRaWan-gateway-monitor/main/LoRaWan_Gateway_Monitor.png)
 
@@ -16,11 +16,11 @@ A tool for extracting and visualising LoRaWAN gateway health information from th
 
 This tool uses the [XMLHttpRequest](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest) object to interact with servers and retrieve data from a specific URL. In order to do this successfully, a query and an API Key are required. These are unique to the organisation, therefore they will have to be collected and input into the correlating fields as well as ensuring the queries and data packages follow the same structure as below.
 ```
-xhttp.open('GET', 'https://os2iot-backend.prod.os2iot.kmd.dk/api/v1/chirpstack/gateway?organizationId=ORGANISATION-ID’);
+xhttp.open('GET', 'https://os2iot-backend.prod.os2iot.kmd.dk/api/v1/chirpstack/gateway?organizationId=ORGANISATION-ID');
 ```
 
 ```
-xhttp.setRequestHeader('x-api-key', ‘API-KEY-HERE');
+xhttp.setRequestHeader('x-api-key', 'API-KEY-HERE');
 ```
 
 ## Data packages
