@@ -84,7 +84,7 @@ function msToTime(ms) {
 
 function loadXMLDoc() {
   var xhttp = new XMLHttpRequest();
-  xhttp.open('GET', 'https://os2iot-backend.prod.os2iot.kmd.dk/api/v1/chirpstack/gateway?organizationId=ORGANISATION-ID');
+  xhttp.open('GET', 'OS2IoT-BACKEND-URL-HERE');
   xhttp.setRequestHeader('x-api-key', 'API-KEY-HERE');
   xhttp.onreadystatechange = function() {
 
@@ -170,7 +170,7 @@ function loadXMLDoc() {
           cell4.innerHTML = data.result[i].description;
 
           let xhttp_pakker = new XMLHttpRequest();
-          xhttp_pakker.open('GET', 'https://os2iot-backend.prod.os2iot.kmd.dk/api/v1/chirpstack/gateway/'+data.result[i].id);
+          xhttp_pakker.open('GET', 'OS2IoT-BACKEND-URL-HERE'+data.result[i].id);
           xhttp_pakker.setRequestHeader('x-api-key', 'API-KEY-HERE');
           xhttp_pakker.onreadystatechange = function() {
 
