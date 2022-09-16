@@ -1,6 +1,6 @@
 # LoRaWAN Gateway Monitor for OS2IoT
 
-A tool for extracting and visualising LoRaWAN gateway health information from the application [OS2iot](https://os2.eu/produkt/os2iot) using built-in HTML and JavaScript objects. The tool identifies and dynamically displays the following applicable information every thirty minutes:
+A tool for extracting and visualising LoRaWAN gateway health information from the application [OS2IoT](https://os2.eu/produkt/os2iot) using built-in HTML and JavaScript objects. The tool identifies and dynamically displays the following applicable information every thirty minutes:
 
 - LoRaWAN Gateway ID.
 - Device Name.
