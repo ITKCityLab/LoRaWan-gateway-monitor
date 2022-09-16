@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Aarhus Kommune - LoRaWAN Gateways</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+      integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+      crossorigin="" />
+<script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+        integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+        crossorigin=""></script>
+<style>
+html {
+ background: #005f7c;
+ scroll-behavior: smooth;
+}
+#Gateways, div#table_div {
+  font-family: Arial,sans-serif;
+  border-collapse: collapse;
+  width: 75%;
+  height: 100%;
+  font-size: 0.9vw;
+  position: fixed;
+}
+#Gateways td, #Gateways th, div#table_div{
+  border: 5px solid #ddd;
+  padding: 9px;
+  text-align: center;
+}
+
+#Gateways, div#table_div tr:nth-child(even){background-color: #f2f2f2;}
+
+div#watermark {
+    position: fixed;
+    width: 75%;
+    height: 100%;
+    z-index: 99999;
+    background: url('https://itk.aarhus.dk/media/79711/itk-4f-10.png') center center no-repeat;
+    pointer-events: none;
+    opacity: 0.09;
+}
+div#map {
+      margin-left: auto;
+      height: 100%;
+      width: 25%;
+}
+#map {position: absolute; top: 0; bottom: 0; left:0; right:0;}.online{
+    font-family: Arial,sans-serif;
+    background: #7ffb88;
+    border:5px solid rgba(255,255,255,0.5);
+    color: black;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 50%;
+    line-height: normal;
+}
+#map {position: absolute; top: 0; bottom: 0; left:0; right:0;}.offline{
+    font-family: Arial,sans-serif;
+    background: #fb7f7f;
+    border:5px solid rgba(255,255,255,0.5);
+    color: black;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 50%;
+    line-height: normal;
+    width: 20px;
+    height: 20px;
+}
+</style>
+</head>
+<body onload="loadXMLDoc()" style="margin: 0;">
+<script>
+setInterval(loadXMLDoc, 1800000);
+
+function msToTime(ms) {
+  let seconds = (ms / 1000).toFixed(1);
+  let minutes = (ms / (1000 * 60)).toFixed(1);
+  let hours = (ms / (1000 * 60 * 60)).toFixed(1);
+  let days = (ms / (1000 * 60 * 60 * 24)).toFixed(1);
+  if (seconds < 60) return seconds + " sek. siden";
+  else if (minutes < 60) return minutes + " min. siden";
+  else if (hours < 24) return hours + " timer siden";
+  else return days + " dage siden"
+}
+
+function loadXMLDoc() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.open('GET', 'https://os2iot-backend.prod.os2iot.kmd.dk/api/v1/chirpstack/gateway?organizationId=ORGANISATION-ID');
+  xhttp.setRequestHeader('x-api-key', 'API-KEY-HERE');
+  xhttp.onreadystatechange = function() {
+
+    if (xhttp.readyState == 4 && xhttp.status == 200) {
+
+      document.body.innerHTML = "";
+
+      var data = JSON.parse(xhttp.responseText);
+
+      var div = document.createElement("DIV");
+      div.id = "watermark";
+      document.body.appendChild(div);
+
+      var map_div = document.createElement("DIV");
+      map_div.id = "map";
+      document.body.appendChild(map_div);
+
+      let dateObj = new Date();
+
+      var marker_group = L.featureGroup();
+      var map = L.map('map', {zoomControl: false}).setView([56.167664,10.205216], 10.8);
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+      {attribution: '<a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> | Opdateret den '+
+      dateObj.toLocaleString().replace(" ", " - kl.")}).addTo(map);
+
+      var table_div = document.createElement("DIV");
+      table_div.id = "table_div";
+      table_div.style.margin = "0px";
+      table_div.style.padding = "0px";
+      table_div.style.border = "0px";
+      document.body.appendChild(table_div);
+      let create_table = document.createElement('Table');
+      create_table.id = "Gateways";
+      table_div.append(create_table);
+
+      let table = document.getElementById("Gateways");
+      let row = table.insertRow(0);
+      row.style.backgroundColor = "#005f7c";
+      row.style.color = "white";
+      row.style.paddingTop = "12px";
+      row.style.paddingBottom = "12px";
+      row.style.fontWeight = "bold";
+
+      let cell1 = row.insertCell(0);
+      cell1.innerHTML = "Nr.";
+
+      let cell2 = row.insertCell(1);
+      cell2.innerHTML = "LoRaWAN Gateway ID";
+
+      let cell3 = row.insertCell(2);
+      cell3.innerHTML = "Navn";
+
+      let cell4 = row.insertCell(3);
+      cell4.innerHTML = "Lokalisering i Aarhus Kommune (Placering, Adresse, Postnr.)";
+
+      let cell5 = row.insertCell(4);
+      cell5.innerHTML = "Pakker modtaget";
+
+      let cell6 = row.insertCell(5);
+      cell6.innerHTML = "Pakker sendt";
+
+      let cell7 = row.insertCell(6);
+      cell7.innerHTML = "Seneste aktivitet";
+
+      let cell8 = row.insertCell(7);
+      cell8.innerHTML = "Status";
+
+      for (let i = 0; i < data.totalCount; i++) {
+
+          let table = document.getElementById("Gateways");
+          let row = table.insertRow(-1);
+
+          let cell1 = row.insertCell(-1);
+          cell1.innerHTML = "#"+(i+1);
+
+          let cell2 = row.insertCell(-1);
+          cell2.innerHTML = data.result[i].id;
+
+          let cell3 = row.insertCell(-1);
+          cell3.innerHTML = data.result[i].name;
+
+          let cell4 = row.insertCell(-1);
+          cell4.innerHTML = data.result[i].description;
+
+          let xhttp_pakker = new XMLHttpRequest();
+          xhttp_pakker.open('GET', 'https://os2iot-backend.prod.os2iot.kmd.dk/api/v1/chirpstack/gateway/'+data.result[i].id);
+          xhttp_pakker.setRequestHeader('x-api-key', 'API-KEY-HERE');
+          xhttp_pakker.onreadystatechange = function() {
+
+              if (xhttp_pakker.readyState == 4 && xhttp_pakker.status == 200) {
+
+                let data_pakker = JSON.parse(xhttp_pakker.responseText);
+
+                let cell5 = row.insertCell(-1);
+                cell5.innerHTML = data_pakker.stats[data_pakker.stats.length-1].rxPacketsReceived;
+
+                let cell6 = row.insertCell(-1);
+                cell6.innerHTML = data_pakker.stats[data_pakker.stats.length-1].txPacketsReceived;
+
+                let cell7 = row.insertCell(-1);
+                let current_date = new Date() - new Date(data.result[i].lastSeenAt);
+                cell7.innerHTML = (current_date < 36*10**9) ? msToTime(current_date) : "ERROR!";
+
+                let cell8 = row.insertCell(-1);
+                cell8.innerHTML = (current_date < 3600000) ? "&#10004" : "&#10006";
+                cell8.style.backgroundColor = (current_date < 3600000) ? "#50ff5db5" : "#ff5050b5";
+
+              }
+                let current_date = new Date() - new Date(data.result[i].lastSeenAt);
+                let markers = (current_date < 3600000) ?
+                L.marker([data.result[i].location.latitude, data.result[i].location.longitude],
+                {icon: L.divIcon({className: 'online', html: (i+1) })}).addTo(map) :
+                L.marker([data.result[i].location.latitude, data.result[i].location.longitude],
+                {icon: L.divIcon({className: 'offline', html: (i+1) })}).addTo(map);
+
+                marker_group.addLayer(markers);
+                map.fitBounds(marker_group.getBounds());
+          }
+          xhttp_pakker.send(null);
+            }
+      }
+    }
+  xhttp.send(null);
+    };
+</script>
+</body>
+</html>
