@@ -14,7 +14,7 @@ A tool for extracting and visualising LoRaWAN gateway health information from th
 
 ## Implementation
 
-This tool uses the [XMLHttpRequest](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest) object to interact with servers and retrieve data from a specific URL. In order to do this successfully, a query and an API Key are required. These are unique to the organisation and it's correlating OS2IoT backend, therefore they will have to be collected and input into the correlating fields as well as ensuring the queries and data packages follow the same structure as below.
+This tool uses the [XMLHttpRequest](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest) object to interact with servers and retrieve data from a specific URL, wherein a query and a mandatory API Key are required. These are unique to the organisation and it's correlating OS2IoT-backend, therefore they will have to be collected and input into the correlating fields as well as ensuring the queries and data packages follow the same structure as below.
 ```
 xhttp.open('GET', 'OS2IoT-BACKEND-URL-HERE/api/v1/chirpstack/gateway?organizationId=ORGANISATION-ID-HERE');
 ```
@@ -25,7 +25,7 @@ xhttp.setRequestHeader('x-api-key', 'API-KEY-HERE');
 
 ## Data packages
 
-In order to correctly navigate the response (data), the corresponding paths throughout the code must match the structure of the package. Below is an example of the string that withdraws the Gateway Description:
+In order to correctly navigate the response (in this case defined as "data"), the corresponding paths throughout the code must match the structure of the package. Below is an example of the string that withdraws the Gateway Description from the response:
 
 ```
 data.result[i].description;
