@@ -14,7 +14,7 @@ A tool for extracting and visualising LoRaWAN gateway health information from th
 
 ## Implementation
 
-This tool uses the [XMLHttpRequest](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest) object to interact with servers and retrieve data from a specific URL, wherein a desginated query and an API Key are required. These are unique to the organisation and it's correlating OS2IoT-backend, therefore they will have to be collected and input into the correlating fields as well as ensuring the queries and data packages follow the same structure as below.
+This tool uses the [XMLHttpRequest](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest) object to interact with servers and retrieve data from a specific URL, wherein a desginated query and an API Key are required. These are unique to the organisation and it's correlating OS2IoT-backend, therefore they will have to be collected and input into the correlating fields within the config.js file, as well as ensuring the queries and data packages follow the same structure as below.
 ```
 apiKey : 'API-KEY-HERE',
 url_gateways : 'OS2IoT-BACKEND-URL-HERE/api/v1/chirpstack/gateway?organizationId=ORGANISATION-ID-HERE',
