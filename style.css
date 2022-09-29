@@ -1,0 +1,82 @@
+html {
+ background: #005f7c;
+}
+
+body {
+    margin: 0;
+    height: 100%;
+    width: 100%;
+}
+
+#Gateways, div#table_div {
+  font-family: Arial,sans-serif;
+  border-collapse: collapse;
+  width: 75%;
+  height: 100%;
+  font-size: 0.9vw;
+  position: fixed;
+  text-align: center;
+  white-space: nowrap;
+}
+
+#Gateways, div#table_div tr:nth-child(even){background-color: #f2f2f2;}
+
+div#watermark {
+    position: fixed;
+    width: 75%;
+    height: 100%;
+    z-index: 1;
+    background: url(itk-4f-10.png) center no-repeat;
+    background-size: 75%;
+    pointer-events: none;
+    opacity: 0.09;
+}
+
+div#map {
+    margin-left: auto;
+    height: 100%;
+    width: 25%;
+}
+
+#map {position: fixed; top: 0; bottom: 0; left:0; right:0;}.online{
+    font-family: Arial,sans-serif;
+    background: #7ffb88;
+    border:5px solid rgba(255,255,255,0.5);
+    color: black;
+    font-weight: bold;
+    font-size: 0.8vw;
+    text-align: center;
+    border-radius: 50%;
+    line-height: normal;
+    width: 0.9vw !important;
+    height: 0.9vw !important;
+    pointer-events: none;
+}
+
+#map {position: fixed; top: 0; bottom: 0; left:0; right:0;}.offline{
+    font-family: Arial,sans-serif;
+    background: #fb7f7f;
+    border:5px solid rgba(255,255,255,0.5);
+    color: black;
+    font-weight: bold;
+    font-size: 0.8vw;
+    text-align: center;
+    border-radius: 50%;
+    line-height: normal;
+    width: 0.9vw !important;
+    height: 0.9vw !important;
+    pointer-events: none;
+}
+
+.leaflet-control-attribution, .leaflet-control-scale-line {
+    font-family: Arial,sans-serif;
+    border-collapse: collapse;
+    width: 25%;
+    padding: 4px !important;
+    text-align: center;
+    white-space: nowrap;
+    position: fixed !important;
+    bottom: 0;
+    right: 0;
+    font-size: 0.9vw;
+}
