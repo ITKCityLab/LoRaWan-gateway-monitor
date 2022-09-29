@@ -10,7 +10,7 @@ A tool for extracting and visualising LoRaWAN gateway health information from th
 - Status.
 - [Leaflet](https://leafletjs.com/) Map.
 
-
+![Screenshot of interface](https://raw.githubusercontent.com/ITKCityLab/LoRaWan-gateway-monitor/main/LoRaWan-Gateway-Monitor.png)
 
 ## Implementation
 
