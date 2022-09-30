@@ -51,6 +51,7 @@ div#map {
     width: 0.9vw !important;
     height: 0.9vw !important;
     pointer-events: none;
+    z-index: 600 !important;
 }
 
 #map {position: fixed; top: 0; bottom: 0; left:0; right:0;}.offline{
@@ -66,6 +67,7 @@ div#map {
     width: 0.9vw !important;
     height: 0.9vw !important;
     pointer-events: none;
+    z-index: 800 !important;
 }
 
 .leaflet-control-attribution, .leaflet-control-scale-line {
