@@ -18,7 +18,7 @@ This tool uses the [XMLHttpRequest](https://developer.mozilla.org/en-US/docs/Web
 ```
 apiKey : 'API-KEY-HERE',
 url_gateways : 'OS2IoT-BACKEND-URL-HERE/api/v1/chirpstack/gateway?organizationId=ORGANISATION-ID-HERE',
-url_gateway : 'OS2IoT-BACKEND-URL-HERE/api/v1/chirpstack/gateway?'
+url_gateway : 'OS2IoT-BACKEND-URL-HERE/api/v1/chirpstack/gateway/'
 ```
 
 ## Data packages
