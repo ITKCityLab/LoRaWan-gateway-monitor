@@ -1,7 +1,7 @@
 function msToTime(ms) {
-  let seconds = (ms / 1000).toFixed(1);
-  let minutes = (ms / (1000 * 60)).toFixed(1);
-  let hours = (ms / (1000 * 60 * 60)).toFixed(1);
+  let seconds = (ms / 1000).toFixed(0);
+  let minutes = (ms / (1000 * 60)).toFixed(0);
+  let hours = (ms / (1000 * 60 * 60)).toFixed(0);
   let days = (ms / (1000 * 60 * 60 * 24)).toFixed(1);
   if (seconds < 60) return seconds + " sek. siden";
   else if (minutes < 60) return minutes + " min. siden";
@@ -66,19 +66,21 @@ function loadXMLDoc() {
       cell3.innerHTML = "Navn";
 
       let cell4 = row.insertCell(3);
-      cell4.innerHTML = "Placering, Adresse & Postnr.";
+      cell4.innerHTML = "Lokation";
 
       let cell5 = row.insertCell(4);
-      cell5.innerHTML = "Pakker modtaget";
+      cell5.innerHTML = "Modtaget";
 
       let cell6 = row.insertCell(5);
-      cell6.innerHTML = "Pakker sendt";
+      cell6.innerHTML = "Sendt";
 
       let cell7 = row.insertCell(6);
       cell7.innerHTML = "Seneste aktivitet";
 
+      /*
       let cell8 = row.insertCell(7);
       cell8.innerHTML = "Status";
+      */
 
       for (let i = 0; i < data.totalCount; i++) {
 
@@ -89,16 +91,46 @@ function loadXMLDoc() {
           cell1.innerHTML = "#"+(i+1);
 
           let cell2 = row.insertCell(-1);
-          cell2.innerHTML = data.result[i].id;
+          cell2.innerHTML = data.resultList[i].gatewayId;
 
           let cell3 = row.insertCell(-1);
-          cell3.innerHTML = data.result[i].name;
+          cell3.innerHTML = data.resultList[i].name;
 
           let cell4 = row.insertCell(-1);
-          cell4.innerHTML = data.result[i].description;
+          cell4.innerHTML = data.resultList[i].description.substring(0,30);
 
+          let cell5 = row.insertCell(-1);
+          cell5.innerHTML = data.resultList[i].rxPacketsReceived;
+
+          let cell6 = row.insertCell(-1);
+          cell6.innerHTML = data.resultList[i].txPacketsEmitted;
+
+          let cell7 = row.insertCell(-1);
+          cell7.innerHTML = data.resultList[i].description;
+
+          let current_date_now = new Date();
+          current_date_now.toLocaleString('da-dk', {timeZone: 'Europe/Copenhagen'});
+          let current_date_db_now = new Date(data.resultList[i].lastSeenAt);
+          current_date_db_now.toLocaleString('da-dk', {timeZone: 'Europe/Copenhagen'});
+
+          let current_date = current_date_now - current_date_db_now;
+          cell7.innerHTML = (current_date < 36*10**9) ? msToTime(current_date) : "ERROR!";
+
+          let cell8 = row.insertCell(-1);
+          cell8.innerHTML = (current_date < 3600000) ? "&#10004" : "&#10006";
+          cell8.style.backgroundColor = (current_date < 3600000) ? "#50ff5db5" : "#ff5050b5";
+
+
+          let markers = (current_date < 3600000) ?
+          L.marker([data.resultList[i].location.latitude, data.resultList[i].location.longitude],
+          {icon: L.divIcon({className: 'online', html: (i+1) })}).addTo(map) :
+          L.marker([data.resultList[i].location.latitude, data.resultList[i].location.longitude],
+          {icon: L.divIcon({className: 'offline', html: (i+1) })}).addTo(map);
+
+
+          /*
           let xhttp_pakker = new XMLHttpRequest();
-          xhttp_pakker.open('GET', config.url_gateway+data.result[i].id);
+          xhttp_pakker.open('GET', config.url_gateway+data.resultList[i].id);
           xhttp_pakker.setRequestHeader('x-api-key', config.apiKey);
           xhttp_pakker.onreadystatechange = function() {
 
@@ -116,7 +148,7 @@ function loadXMLDoc() {
                 
                 let current_date_now = new Date();
                 current_date_now.toLocaleString('da-dk', {timeZone: 'Europe/Copenhagen'});
-                let current_date_db_now = new Date(data.result[i].lastSeenAt);
+                let current_date_db_now = new Date(data.resultList[i].lastSeenAt);
                 current_date_db_now.toLocaleString('da-dk', {timeZone: 'Europe/Copenhagen'});
 
                 let current_date = current_date_now - current_date_db_now;
@@ -127,9 +159,9 @@ function loadXMLDoc() {
                 cell8.style.backgroundColor = (current_date < 3600000) ? "#50ff5db5" : "#ff5050b5";
 
                 let markers = (current_date < 3600000) ?
-                L.marker([data.result[i].location.latitude, data.result[i].location.longitude],
+                L.marker([data.resultList[i].location.latitude, data.resultList[i].location.longitude],
                 {icon: L.divIcon({className: 'online', html: (i+1) })}).addTo(map) :
-                L.marker([data.result[i].location.latitude, data.result[i].location.longitude],
+                L.marker([data.resultList[i].location.latitude, data.resultList[i].location.longitude],
                 {icon: L.divIcon({className: 'offline', html: (i+1) })}).addTo(map);
 
                 marker_group.addLayer(markers);
@@ -138,7 +170,9 @@ function loadXMLDoc() {
               }
           }
           xhttp_pakker.send();
+           */
             }
+          
       }
     }
   xhttp.send();
