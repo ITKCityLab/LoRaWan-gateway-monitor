@@ -89,9 +89,11 @@ function loadXMLDoc() {
 
           let cell1 = row.insertCell(-1);
           cell1.innerHTML = "#"+(i+1);
+          cell1.className = "right"
 
           let cell2 = row.insertCell(-1);
           cell2.innerHTML = data.resultList[i].gatewayId;
+          cell2.className = "right";
 
           let cell3 = row.insertCell(-1);
           cell3.innerHTML = data.resultList[i].name;
@@ -101,12 +103,15 @@ function loadXMLDoc() {
 
           let cell5 = row.insertCell(-1);
           cell5.innerHTML = data.resultList[i].rxPacketsReceived;
+          cell5.className = "right";
 
           let cell6 = row.insertCell(-1);
           cell6.innerHTML = data.resultList[i].txPacketsEmitted;
+          cell6.className = "right"
 
           let cell7 = row.insertCell(-1);
           cell7.innerHTML = data.resultList[i].description;
+          cell7.className = "right";
 
           let current_date_now = new Date();
           current_date_now.toLocaleString('da-dk', {timeZone: 'Europe/Copenhagen'});
