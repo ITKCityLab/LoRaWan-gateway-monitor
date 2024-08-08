@@ -35,7 +35,7 @@ function loadXMLDoc() {
       let timeDateStr = dateStr + ', ' + timeStr;
 
       var marker_group = L.featureGroup();
-      var map = L.map('map', {zoomSnap: 0.35, zoomControl: false, dragging: false, doubleClickZoom: false, scrollWheelZoom: false, boxZoom: false}).setView([56.167664,10.205216], 10.8);
+      var map = L.map('map', {zoomSnap: 0.35, zoomControl: false, dragging: true, doubleClickZoom: true, scrollWheelZoom: true, boxZoom: false}).setView([56.167664,10.205216], 10.8);
       L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution: '<a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> | Opd. '+timeDateStr}).addTo(map);
       
       var table_div = document.createElement("DIV");
