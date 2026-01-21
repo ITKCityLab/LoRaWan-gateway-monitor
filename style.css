@@ -11,12 +11,69 @@ body {
 #Gateways, div#table_div {
   font-family: Arial,sans-serif;
   border-collapse: collapse;
-  width: 75%;
-  height: 100%;
+  width: 60%;
   font-size: 0.7vw;
   position: fixed;
   text-align: left;
   white-space: nowrap;
+  display: block;
+  height: 100%;
+}
+
+#Gateways tbody {
+  display: block;
+  height: calc(100% - 2em);
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+#Gateways thead {
+  display: block;
+  position: sticky;
+  top: 0;
+  background-color: #e8e8e8;
+  z-index: 10;
+}
+
+#Gateways tr {
+  width: 100%;
+  display: table;
+  table-layout: fixed;
+}
+
+#Gateways thead th:nth-child(1),
+#Gateways tbody td:nth-child(1),
+#Gateways thead th:nth-child(5),
+#Gateways tbody td:nth-child(5),
+#Gateways thead th:nth-child(6),
+#Gateways tbody td:nth-child(6) {
+  width: 20px;
+}
+#Gateways thead th:nth-child(2),
+#Gateways tbody td:nth-child(2) {
+  width: 130px;
+}
+#Gateways thead th:nth-child(3),
+#Gateways tbody td:nth-child(3) {
+  width: 250px;
+}
+#Gateways thead th:nth-child(4),
+#Gateways tbody td:nth-child(4) {
+  width: 250px;
+}
+#Gateways thead th:nth-child(5),
+#Gateways thead td:nth-child(5),
+#Gateways thead th:nth-child(6),
+#Gateways tbody td:nth-child(6),
+#Gateways thead th:nth-child(8),
+#Gateways tbody td:nth-child(8) {
+  width: 25px;
+}
+
+#Gateways thead th,
+#Gateways tbody td {
+  word-wrap: break-word;
+  overflow: hidden;
 }
 
 .right {
@@ -48,7 +105,7 @@ div#watermark {
 div#map {
     margin-left: auto;
     height: 100%;
-    width: 25%;
+    width: 40%;
 }
 
 #map {position: fixed; top: 0; bottom: 0; left:0; right:0;}.online{

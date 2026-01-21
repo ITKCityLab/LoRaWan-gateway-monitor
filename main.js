@@ -69,10 +69,10 @@ function loadXMLDoc() {
       cell4.innerHTML = "Lokation";
 
       let cell5 = row.insertCell(4);
-      cell5.innerHTML = "Modtaget";
+      cell5.innerHTML = "🔽";
 
       let cell6 = row.insertCell(5);
-      cell6.innerHTML = "Sendt";
+      cell6.innerHTML = "⬆️";
 
       let cell7 = row.insertCell(6);
       cell7.innerHTML = "Seneste aktivitet";
