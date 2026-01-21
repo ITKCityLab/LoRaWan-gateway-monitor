@@ -2,11 +2,11 @@ function msToTime(ms) {
   let seconds = (ms / 1000).toFixed(0);
   let minutes = (ms / (1000 * 60)).toFixed(0);
   let hours = (ms / (1000 * 60 * 60)).toFixed(0);
-  let days = (ms / (1000 * 60 * 60 * 24)).toFixed(1);
-  if (seconds < 60) return seconds + " sek. siden";
-  else if (minutes < 60) return minutes + " min. siden";
-  else if (hours < 24) return hours + " timer siden";
-  else return days + " dage siden"
+  let days = (ms / (1000 * 60 * 60 * 24)).toFixed(0);
+  if (seconds < 60) return seconds + " sek.";
+  else if (minutes < 60) return minutes + " min.";
+  else if (hours < 24) return hours + " timer";
+  else return days + " døgn"
 };
 
 function loadXMLDoc() {
