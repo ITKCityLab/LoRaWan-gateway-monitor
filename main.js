@@ -132,51 +132,7 @@ function loadXMLDoc() {
           L.marker([data.resultList[i].location.latitude, data.resultList[i].location.longitude],
           {icon: L.divIcon({className: 'offline', html: (i+1) })}).addTo(map);
 
-
-          /*
-          let xhttp_pakker = new XMLHttpRequest();
-          xhttp_pakker.open('GET', config.url_gateway+data.resultList[i].id);
-          xhttp_pakker.setRequestHeader('x-api-key', config.apiKey);
-          xhttp_pakker.onreadystatechange = function() {
-
-              if (xhttp_pakker.readyState == 4 && xhttp_pakker.status == 200) {
-
-                let data_pakker = JSON.parse(xhttp_pakker.responseText);
-
-                let cell5 = row.insertCell(-1);
-                cell5.innerHTML = data_pakker.stats[data_pakker.stats.length-1].rxPacketsReceived;
-
-                let cell6 = row.insertCell(-1);
-                cell6.innerHTML = data_pakker.stats[data_pakker.stats.length-1].txPacketsReceived;
-
-                let cell7 = row.insertCell(-1);
-                
-                let current_date_now = new Date();
-                current_date_now.toLocaleString('da-dk', {timeZone: 'Europe/Copenhagen'});
-                let current_date_db_now = new Date(data.resultList[i].lastSeenAt);
-                current_date_db_now.toLocaleString('da-dk', {timeZone: 'Europe/Copenhagen'});
-
-                let current_date = current_date_now - current_date_db_now;
-                cell7.innerHTML = (current_date < 36*10**9) ? msToTime(current_date) : "ERROR!";
-
-                let cell8 = row.insertCell(-1);
-                cell8.innerHTML = (current_date < 3600000) ? "&#10004" : "&#10006";
-                cell8.style.backgroundColor = (current_date < 3600000) ? "#50ff5db5" : "#ff5050b5";
-
-                let markers = (current_date < 3600000) ?
-                L.marker([data.resultList[i].location.latitude, data.resultList[i].location.longitude],
-                {icon: L.divIcon({className: 'online', html: (i+1) })}).addTo(map) :
-                L.marker([data.resultList[i].location.latitude, data.resultList[i].location.longitude],
-                {icon: L.divIcon({className: 'offline', html: (i+1) })}).addTo(map);
-
-                marker_group.addLayer(markers);
-                map.fitBounds(marker_group.getBounds());
-
-              }
-          }
-          xhttp_pakker.send();
-           */
-            }
+        }
           
       }
     }
