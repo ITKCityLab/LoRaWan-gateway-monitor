@@ -82,6 +82,9 @@ function loadXMLDoc() {
       cell8.innerHTML = "Status";
       */
 
+      // Sort by name
+      data.resultList.sort((a, b) => a.name.localeCompare(b.name));
+
       for (let i = 0; i < data.totalCount; i++) {
 
           let table = document.getElementById("Gateways");
